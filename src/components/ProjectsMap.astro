@@ -1,0 +1,159 @@
+---
+// Dot coordinates as % of image width/height
+const locations = [
+  {
+    id: "usa",
+    label: "USA",
+    x: 26.5,
+    y: 36,
+    projects: [
+      { name: "Fiera di New York", dates: "12–15 Mar 2027", place: "New York" },
+      { name: "Expo Chicago", dates: "3–6 Giu 2027", place: "Chicago" },
+    ],
+  },
+  {
+    id: "spain",
+    label: "Spagna",
+    x: 45.5,
+    y: 40,
+    projects: [
+      { name: "Fira Barcelona", dates: "22–25 Apr 2027", place: "Barcellona" },
+    ],
+  },
+  {
+    id: "france",
+    label: "Francia",
+    x: 49.6,
+    y: 35,
+    projects: [
+      { name: "Salon de Paris", dates: "9–12 Set 2027", place: "Parigi" },
+      { name: "Foire de Lyon", dates: "1–3 Ott 2027", place: "Lione" },
+    ],
+  },
+  {
+    id: "germany",
+    label: "Germania",
+    x: 59.8,
+    y: 30,
+    projects: [
+      { name: "Messe Berlin", dates: "14–17 Mag 2027", place: "Berlino" },
+      { name: "Messe München", dates: "5–8 Lug 2027", place: "Monaco" },
+    ],
+  },
+  {
+    id: "korea",
+    label: "Corea del Sud",
+    x: 84,
+    y: 43,
+    projects: [{ name: "Seoul Expo", dates: "18–21 Nov 2027", place: "Seoul" }],
+  },
+];
+
+import { Image } from "astro:assets";
+import mapImage from "../assets/images/map.png";
+---
+
+<section class="relative mx-auto max-w-[1336px] px-8 py-20 text-white md:px-16">
+  <projects-map>
+    <div class="relative mx-auto aspect-[4096/2304] w-full">
+      <Image
+        src={mapImage}
+        alt="World map showing project locations"
+        class="absolute inset-0 h-full w-full object-contain"
+      />
+
+      {
+        locations.map((loc) => (
+          <button
+            type="button"
+            class="map-dot absolute h-[15px] w-[15px] -translate-x-1/2 -translate-y-1/2 cursor-pointer rounded-full bg-[#ffa500] transition-transform duration-150 hover:scale-125 focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
+            style={`left:${loc.x}%; top:${loc.y}%`}
+            data-id={loc.id}
+            aria-label={`View projects in ${loc.label}`}
+          />
+        ))
+      }
+    </div>
+
+    <div class="mt-12">
+      <h2 class="projects-heading text-4xl text-[var(--color-accent)]">
+        Projects
+      </h2>
+
+      <div
+        class="projects-list mt-2 max-w-[520px] text-sm leading-relaxed text-white/70"
+      >
+        <p data-default-text>
+          Select a location on the map to view the projects associated with it.
+        </p>
+      </div>
+    </div>
+
+    <script
+      type="application/json"
+      data-locations
+      set:html={JSON.stringify(locations)}
+    />
+  </projects-map>
+</section>
+
+<style>
+  .map-dot.is-active {
+    box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.35);
+  }
+</style>
+
+<script>
+  class ProjectsMap extends HTMLElement {
+    private locations: Array<{
+      id: string;
+      label: string;
+      projects: { name: string; dates: string; place: string }[];
+    }> = [];
+    private listEl!: HTMLElement;
+    private dots!: NodeListOf<HTMLButtonElement>;
+
+    connectedCallback() {
+      const dataScript = this.querySelector<HTMLScriptElement>(
+        "script[data-locations]",
+      );
+      this.locations = dataScript
+        ? JSON.parse(dataScript.textContent || "[]")
+        : [];
+      this.listEl = this.querySelector(".projects-list")!;
+      this.dots = this.querySelectorAll(".map-dot");
+
+      this.dots.forEach((dot) => {
+        dot.addEventListener("click", () =>
+          this.selectLocation(dot.dataset.id!),
+        );
+      });
+    }
+
+    selectLocation(id: string) {
+      this.dots.forEach((d) =>
+        d.classList.toggle("is-active", d.dataset.id === id),
+      );
+
+      const loc = this.locations.find((l) => l.id === id);
+      if (!loc) return;
+
+      this.listEl.innerHTML = `
+        <h3 class="mb-3 text-2xl font-medium text-white">${loc.label}</h3>
+        <ul class="space-y-2">
+          ${loc.projects
+            .map(
+              (p) => `
+            <li class="border-b border-white/10 pb-2">
+              <span class="font-medium text-white">${p.name}</span>
+              <span class="text-white/50"> — ${p.dates}, ${p.place}</span>
+            </li>`,
+            )
+            .join("")}
+        </ul>
+      `;
+    }
+  }
+
+  customElements.define("projects-map", ProjectsMap);
+</script>
