@@ -1,0 +1,9 @@
+@import "tailwindcss";
+
+:root {
+  --color-accent: #c98a45; /* the muted gold/orange used for lines & icon */
+}
+
+body {
+  font-family: "Poppins", ui-sans-serif, system-ui, sans-serif;
+}

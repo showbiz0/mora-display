@@ -1,0 +1,24 @@
+---
+export interface Props {
+  src: ImageMetadata;
+  alt: string;
+  subheading: string;
+  class?: string;
+}
+const { src, alt, subheading, class: className = "" } = Astro.props;
+
+import { Image } from "astro:assets";
+---
+
+<div class={`relative overflow-hidden rounded-xl ${className}`}>
+  <Image src={src} alt={alt} class="h-full w-full object-cover" />
+  <div
+    class="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent"
+  >
+  </div>
+  <span
+    class="absolute bottom-6 left-6 rounded-md bg-white/95 px-4 py-2 text-sm font-semibold text-black"
+  >
+    {subheading}
+  </span>
+</div>

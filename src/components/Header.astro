@@ -1,0 +1,25 @@
+---
+import { Image } from "astro:assets";
+import logoImage from "../assets/logo.png";
+---
+
+<header
+  class="relative z-20 flex items-center justify-between px-8 py-8 md:px-16"
+>
+  <a href="/" class="text-lg font-semibold tracking-wide text-white">
+    <Image src={logoImage} alt="Logo" class="h-full w-auto" loading="eager" />
+  </a>
+
+  <button
+    type="button"
+    class="group flex cursor-pointer items-center gap-3"
+    aria-label="Open menu"
+  >
+    <span class="flex flex-col gap-[6px]">
+      <span class="block h-[2px] w-7 bg-[var(--color-accent)]"></span>
+      <span class="block h-[2px] w-7 bg-[var(--color-accent)]"></span>
+      <span class="block h-[2px] w-7 bg-[var(--color-accent)]"></span>
+    </span>
+    <span class="text-base font-medium text-white">Menu</span>
+  </button>
+</header>
