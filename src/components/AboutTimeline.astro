@@ -1,0 +1,187 @@
+---
+interface TimelineEntry {
+  year: string;
+  text: string;
+}
+
+const timeline: TimelineEntry[] = [
+  {
+    year: "1295",
+    text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+  },
+  {
+    year: "1362",
+    text: "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+  },
+  {
+    year: "1481",
+    text: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.",
+  },
+  {
+    year: "1587",
+    text: "Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet.",
+  },
+  {
+    year: "1699",
+    text: "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident.",
+  },
+];
+
+// Per-button arc gap sizes (fraction of circle drawn), tuned to loosely
+// echo the varied partial-rings in the reference screenshot.
+const arcFractions = [1, 0.65, 0.9, 0.5, 0.7];
+
+import { Image } from "astro:assets";
+import darkLogoImage from "../assets/logo-dark.png"
+---
+
+<section class="relative bg-black px-8 py-24 text-white md:px-16">
+  <about-timeline>
+    <div class="mx-auto grid max-w-[1336px] items-center gap-16 md:grid-cols-[220px_1fr] lg:grid-cols-[220px_1fr_420px]">
+      <!-- Year buttons column -->
+      <div class="relative flex flex-row gap-8 overflow-x-auto pb-2 md:flex-col md:items-center md:gap-14 md:overflow-visible md:pb-0">
+        {
+          timeline.map((entry, i) => {
+            const r = 46;
+            const circumference = 2 * Math.PI * r;
+            const dash = circumference * arcFractions[i];
+            const gap = circumference - dash;
+            return (
+              <button
+                type="button"
+                class="year-btn relative z-10 flex shrink-0 items-center justify-center rounded-full transition-all duration-300 cursor-pointer"
+                data-index={i}
+                aria-pressed={i === 0 ? "true" : "false"}
+              >
+                <svg
+                  viewBox="0 0 100 100"
+                  class="year-ring absolute inset-0 h-full w-full -rotate-45 text-[var(--color-accent)]"
+                >
+                  <circle
+                    cx="50"
+                    cy="50"
+                    r={r}
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1"
+                    stroke-dasharray={`${dash} ${gap}`}
+                    stroke-linecap="round"
+                  />
+                </svg>
+                <span class="year-label relative text-sm font-light text-white/50 transition-colors duration-300">
+                  {entry.year}
+                </span>
+              </button>
+            );
+          })
+        }
+      </div>
+
+      <!-- Content column -->
+      <div>
+        <h2 class="text-4xl font-light text-[var(--color-accent)]">About us</h2>
+        <hr class="mt-6 border-white/15" />
+
+        <div class="content-panel mt-10 max-w-[620px] transition-opacity duration-300">
+          <h3 class="content-year text-3xl font-light text-white" data-content-year>
+            {timeline[0].year}
+          </h3>
+          <p class="content-text mt-6 text-base leading-relaxed text-white/70" data-content-text>
+            {timeline[0].text}
+          </p>
+        </div>
+      </div>
+
+      <!-- Logo column (desktop only) -->
+      <div class="hidden items-center justify-center lg:flex">
+        <Image
+          src={darkLogoImage}
+          alt="Company logo"
+          class="w-full max-w-[420px] object-contain opacity-30"
+        />
+      </div>
+    </div>
+
+    <script type="application/json" data-timeline set:html={JSON.stringify(timeline)} />
+  </about-timeline>
+</section>
+
+<style>
+  .year-btn {
+    width: 90px;
+    height: 90px;
+  }
+
+  .year-btn[aria-pressed="true"] {
+    width: 150px;
+    height: 150px;
+  }
+
+  .year-btn[aria-pressed="true"] .year-label {
+    color: white;
+    font-size: 1.5rem;
+    font-weight: 400;
+  }
+
+  .year-btn[aria-pressed="true"] .year-ring {
+    color: var(--color-accent);
+  }
+
+  .year-btn:not([aria-pressed="true"]) .year-ring {
+    opacity: 0.35;
+  }
+
+  .year-btn:hover .year-label {
+    color: white;
+  }
+
+  .content-panel.is-fading {
+    opacity: 0;
+  }
+</style>
+
+<script>
+  class AboutTimeline extends HTMLElement {
+    private timeline: { year: string; text: string }[] = [];
+    private buttons!: NodeListOf<HTMLButtonElement>;
+    private yearEl!: HTMLElement;
+    private textEl!: HTMLElement;
+    private panelEl!: HTMLElement;
+
+    connectedCallback() {
+      const dataScript = this.querySelector<HTMLScriptElement>(
+        "script[data-timeline]"
+      );
+      this.timeline = dataScript ? JSON.parse(dataScript.textContent || "[]") : [];
+      this.buttons = this.querySelectorAll(".year-btn");
+      this.yearEl = this.querySelector("[data-content-year]")!;
+      this.textEl = this.querySelector("[data-content-text]")!;
+      this.panelEl = this.querySelector(".content-panel")!;
+
+      this.buttons.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const index = Number(btn.dataset.index);
+          this.selectYear(index);
+        });
+      });
+    }
+
+    selectYear(index: number) {
+      const entry = this.timeline[index];
+      if (!entry) return;
+
+      this.buttons.forEach((btn, i) => {
+        btn.setAttribute("aria-pressed", String(i === index));
+      });
+
+      this.panelEl.classList.add("is-fading");
+      window.setTimeout(() => {
+        this.yearEl.textContent = entry.year;
+        this.textEl.textContent = entry.text;
+        this.panelEl.classList.remove("is-fading");
+      }, 180);
+    }
+  }
+
+  customElements.define("about-timeline", AboutTimeline);
+</script>
