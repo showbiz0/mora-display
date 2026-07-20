@@ -2,49 +2,40 @@
 
 ---
 
-<section class="relative overflow-hidden px-8 py-16 md:px-16">
-  <!-- Decorative lines -->
-  <svg
-    class="pointer-events-none absolute inset-0 z-0 hidden h-full w-full object-cover md:block"
-    viewBox="0 0 1440 766"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    aria-hidden="true"
-    preserveAspectRatio="none"
-  >
-    <path
-      d="M752.249 264.133C979.28 108.716 1235.93 -22.405 1523.54 3.21775L1523.46 4.21384C1236.32 -21.366 980.039 109.456 753.162 264.721C776.916 280 801.405 296.03 826.656 312.83C868.993 284.659 913.984 260.421 962.468 242.017C1103.83 188.355 1274.82 184.298 1496.19 276.755L1495.81 277.678C1274.63 185.304 1103.91 189.394 962.823 242.951C914.551 261.276 869.74 285.395 827.56 313.431C993.882 424.128 1193.22 568.138 1433.3 750.317L1433 750.716L1432.7 751.114C1192.44 568.801 993.01 424.734 826.656 314.031C745.906 367.857 674.789 436.017 607.446 505.316C504.738 611.008 410.777 719.393 304.869 783.379C251.899 815.381 195.919 836.293 134.336 840.217C72.7518 844.14 5.59861 831.072 -69.7148 795.167L-69.2852 794.265C5.90107 830.109 72.8853 843.13 134.272 839.219C195.66 835.308 251.487 814.463 304.353 782.523C410.117 718.625 503.95 610.386 606.729 504.62C673.98 435.415 745.048 367.288 825.755 313.432C800.505 296.635 776.018 280.608 752.267 265.334C693.414 305.641 636.539 347.581 581.621 388.851C448.235 489.087 326.363 585.375 215.716 644.558C105.07 703.74 5.48999 725.905 -83.2393 677.655L-82.7607 676.776C5.50996 724.777 104.683 702.813 215.244 643.676C325.804 584.54 447.591 488.32 581.021 388.051C635.829 346.864 692.599 304.996 751.354 264.745C575.89 151.956 440.624 80.2885 334.591 42.831C227.025 4.83213 149.636 2.07418 90.9082 27.2138C32.1841 52.3522 -8.00269 105.437 -41.043 179.42L-41.9561 179.012C-8.87559 104.939 31.4492 51.5794 90.5146 26.2949C149.577 1.01187 227.256 3.85371 334.924 41.8886C441.113 79.4014 576.563 151.181 752.249 264.133Z"
-      fill="#FF6A00"></path>
-  </svg>
+<section class="relative px-8 py-16 lg:px-16">
+  <h2 class="mb-8 text-5xl font-thin text-[var(--color-accent)]">Contact</h2>
 
-  <form
-    method="post"
-    class="relative z-10 mx-auto flex max-w-[400px] flex-col gap-4 bg-black md:p-2"
-  >
-    <input
-      aria-label="Name"
-      type="text"
-      name="name"
-      placeholder="NAME"
-      class="rounded border border-gray-300 p-3 transition outline-none placeholder:text-center placeholder:text-gray-300 focus:border-[var(--color-accent)] focus:ring-1 focus:ring-[var(--color-accent)]"
-    />
-    <input
-      aria-label="Email"
-      type="email"
-      name="email"
-      placeholder="EMAIL"
-      class="rounded border border-gray-300 p-3 transition outline-none placeholder:text-center placeholder:text-gray-300 focus:border-[var(--color-accent)] focus:ring-1 focus:ring-[var(--color-accent)]"
-    />
+  <form method="post" class="relative z-10 flex flex-col gap-6 bg-black lg:p-2">
+    <div class="flex flex-col gap-6 lg:flex-row lg:gap-12">
+      <div class="flex items-stretch">
+        <label for="name" class="bg-[#7f3500] flex items-center text-gray-300 w-28 px-5 select-none lg:w-32 border border-[#e59053]">Name</label>
+        <input
+          aria-label="Name"
+          type="text"
+          name="name"
+          class="w-full border border-gray-300 border-l-0 p-3 transition outline-none focus:border-[var(--color-accent)] focus:ring-1 focus:ring-[var(--color-accent)] lg:w-64"
+        />
+      </div>
+      <div class="flex items-stretch">
+        <label for="email" class="bg-[#7f3500] flex items-center text-gray-300 w-28 px-5 select-none lg:w-32 border border-[#e59053]">Email</label>
+        <input
+          aria-label="Email"
+          type="email"
+          name="email"
+          class="w-full border border-gray-300 border-l-0 p-3 transition outline-none focus:border-[var(--color-accent)] focus:ring-1 focus:ring-[var(--color-accent)] lg:w-64"
+        />
+      </div>
+    </div>
     <textarea
       aria-label="Message"
-      rows="10"
+      rows="5"
       name="message"
-      placeholder="MESSAGE"
-      class="rounded border border-gray-300 p-3 transition outline-none placeholder:text-center placeholder:text-gray-300 focus:border-[var(--color-accent)] focus:ring-1 focus:ring-[var(--color-accent)]"
+      placeholder="Message"
+      class="border border-gray-300 p-3 transition outline-none placeholder:text-gray-300 focus:border-[var(--color-accent)] focus:ring-1 focus:ring-[var(--color-accent)]"
     ></textarea>
     <button
       type="submit"
-      class="cursor-pointer rounded border border-[var(--color-accent)] p-3 text-[var(--color-accent)] hover:bg-(--color-accent)/20"
+      class="ml-auto w-fit cursor-pointer border border-[var(--color-accent)] p-3 px-12 text-[var(--color-accent)] hover:bg-(--color-accent)/20"
       >SEND</button
     >
   </form>

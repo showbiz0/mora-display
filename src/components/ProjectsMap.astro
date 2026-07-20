@@ -45,7 +45,9 @@ const locations = [
     label: "Russia",
     x: 85,
     y: 35,
-    projects: [{ name: "Moscow Expo", dates: "18–21 Nov 2027", place: "Mosca" }],
+    projects: [
+      { name: "Moscow Expo", dates: "18–21 Nov 2027", place: "Mosca" },
+    ],
   },
 ];
 
@@ -54,7 +56,7 @@ import mapImage from "../assets/images/map.png";
 ---
 
 <section class="relative mx-auto max-w-[1336px] px-8 py-20 text-white md:px-16">
-  <projects-map class="flex flex-col md:justify-between md:flex-row-reverse">
+  <projects-map class="flex flex-col md:flex-row-reverse md:justify-between">
     <div class="relative mx-auto aspect-[1858/2304] w-full md:w-1/2">
       <Image
         src={mapImage}
@@ -76,7 +78,9 @@ import mapImage from "../assets/images/map.png";
     </div>
 
     <div class="mt-12 md:w-1/2">
-      <h2 class="projects-heading text-5xl font-thin text-[var(--color-accent)]">
+      <h2
+        class="projects-heading text-5xl font-thin text-[var(--color-accent)]"
+      >
         Projects
       </h2>
 
