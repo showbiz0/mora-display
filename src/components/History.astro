@@ -145,9 +145,9 @@ const events: Event[] = [
         events.map((ev) => (
           <div class="relative pl-8">
             <div class="bg-accent/50 absolute top-1 left-0 h-6 w-6 rounded-full" />
-            <span class="text-accent text-xl font-light">{ev.year}</span>
+            <span class="text-accent text-3xl font-light">{ev.year}</span>
             <div
-              class="mt-2 text-sm leading-relaxed text-white/80"
+              class="mt-2 text-lg leading-relaxed text-white/80"
               set:html={ev.html}
             />
           </div>
