@@ -1,0 +1,128 @@
+---
+// Hero.astro — Mobile-Tight / Desktop-Spread SVG Text Alignment
+---
+
+<section
+  id="hero-pin-container"
+  class="relative h-screen w-full overflow-hidden bg-black"
+>
+  <!-- 1. Optimized Video -->
+  <video
+    autoplay
+    loop
+    muted
+    playsinline
+    poster="/assets/hero.png"
+    class="absolute inset-0 h-full w-full object-cover"
+  >
+    <source src="/assets/hero.webm" type="video/webm" />
+    <source src="/assets/hero.mp4" type="video/mp4" />
+    Your browser does not support HTML5 video.
+  </video>
+
+  <!-- 2. SVG Mask Overlay -->
+  <div
+    id="hero-mask-wrapper"
+    class="pointer-events-none absolute inset-0 h-full w-full"
+  >
+    <svg
+      class="h-full w-full"
+      viewBox="0 0 1920 1080"
+      preserveAspectRatio="xMidYMid slice"
+    >
+      <defs>
+        <mask id="hero-text-mask" x="0" y="0" width="100%" height="100%">
+          <!-- White background = Overlay stays solid black -->
+          <rect width="100%" height="100%" fill="white"></rect>
+
+          <!-- Black text = Cutout hole where video shows through -->
+          <g id="hero-text-group" style="transform-origin: 50% 50%;">
+            <!-- Line 1: Lifted higher on desktop via md:-translate-y-8 -->
+            <text
+              x="960"
+              y="485"
+              text-anchor="middle"
+              class="font-heading -translate-y-1 fill-black text-[54px] font-extrabold tracking-tight transition-transform md:-translate-y-8 md:text-[92px]"
+            >
+              From vision to venue
+            </text>
+
+            <!-- Line 2: Pushed lower on desktop via md:translate-y-8 -->
+            <text
+              x="960"
+              y="525"
+              text-anchor="middle"
+              class="font-heading translate-y-1 fill-black text-[48px] font-extrabold tracking-tight transition-transform md:translate-y-8 md:text-[88px]"
+            >
+              your trade show success
+            </text>
+          </g>
+        </mask>
+      </defs>
+
+      <!-- Black rectangle with mask applied -->
+      <rect width="100%" height="100%" fill="black" mask="url(#hero-text-mask)"
+      ></rect>
+    </svg>
+  </div>
+
+  <!-- 3. Scroll Indicator Hint -->
+  <div
+    id="hero-scroll-hint"
+    class="pointer-events-none absolute bottom-10 left-1/2 z-10 flex -translate-x-1/2 flex-col items-center gap-2 text-white/60 transition-opacity duration-300"
+  >
+    <span class="text-xs font-light tracking-widest uppercase"
+      >Scroll to explore</span
+    >
+    <svg
+      class="text-accent h-5 w-5 animate-bounce"
+      fill="none"
+      stroke="currentColor"
+      viewBox="0 0 24 24"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="1.5"
+        d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+    </svg>
+  </div>
+</section>
+
+<script>
+  import gsap from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  const textGroup = document.getElementById("hero-text-group");
+  const scrollHint = document.getElementById("hero-scroll-hint");
+
+  if (textGroup) {
+    const isMobile = window.innerWidth < 768;
+    const scrollDistance = isMobile ? "+=750" : "+=1000";
+    const scrub = isMobile ? 1 : 2;
+
+    const timeline = gsap.timeline({
+      scrollTrigger: {
+        trigger: "#hero-pin-container",
+        start: "top top",
+        end: scrollDistance,
+        scrub: scrub,
+        pin: true,
+        anticipatePin: 1,
+        onUpdate: (self) => {
+          if (scrollHint) {
+            scrollHint.style.opacity = (1 - self.progress * 8).toString();
+          }
+        },
+      },
+    });
+
+    timeline.to(textGroup, {
+      scale: 175,
+      transformOrigin: "50% 50%",
+      ease: "power2.inOut",
+    });
+  }
+</script>
