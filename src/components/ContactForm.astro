@@ -3,26 +3,34 @@
 ---
 
 <section class="relative px-8 py-16 lg:px-16">
-  <h2 class="mb-8 font-heading text-5xl font-thin text-accent">Contact</h2>
+  <h2 class="font-heading text-accent mb-8 text-5xl font-thin">Contact</h2>
 
   <form method="post" class="relative z-10 flex flex-col gap-6 bg-black lg:p-2">
     <div class="flex flex-col gap-6 lg:flex-row lg:gap-12">
       <div class="flex items-stretch">
-        <label for="name" class="bg-[#7f3500] text-lg flex items-center w-28 px-5 select-none lg:w-32 border border-[#e59053]">name</label>
+        <label
+          for="name"
+          class="flex w-28 items-center border border-[#e59053] bg-[#7f3500] px-5 text-lg select-none lg:w-32"
+          >name</label
+        >
         <input
           aria-label="Name"
           type="text"
           name="name"
-          class="w-full border border-white/75 text-lg border-l-0 p-3 transition outline-none focus:border-accent focus:ring-1 focus:ring-accent lg:w-64"
+          class="focus:border-accent focus:ring-accent w-full border border-l-0 border-white/75 p-3 text-lg transition outline-none focus:ring-1 lg:w-64"
         />
       </div>
       <div class="flex items-stretch">
-        <label for="email" class="bg-[#7f3500] text-lg flex items-center w-28 px-5 select-none lg:w-32 border border-[#e59053]">email</label>
+        <label
+          for="email"
+          class="flex w-28 items-center border border-[#e59053] bg-[#7f3500] px-5 text-lg select-none lg:w-32"
+          >email</label
+        >
         <input
           aria-label="Email"
           type="email"
           name="email"
-          class="w-full border border-white/75 text-lg border-l-0 p-3 transition outline-none focus:border-accent focus:ring-1 focus:ring-accent lg:w-64"
+          class="focus:border-accent focus:ring-accent w-full border border-l-0 border-white/75 p-3 text-lg transition outline-none focus:ring-1 lg:w-64"
         />
       </div>
     </div>
@@ -31,11 +39,11 @@
       rows="5"
       name="message"
       placeholder="message"
-      class="text-lg border border-white/75 p-3 transition outline-none focus:border-accent focus:ring-1 focus:ring-accent"
+      class="focus:border-accent focus:ring-accent border border-white/75 p-3 text-lg transition outline-none focus:ring-1"
     ></textarea>
     <button
       type="submit"
-      class="ml-auto w-fit cursor-pointer border border-accent/15 p-3 px-12 text-lg bg-accent/50"
+      class="border-accent/15 bg-accent/50 ml-auto w-fit cursor-pointer border p-3 px-12 text-lg"
       >send</button
     >
   </form>

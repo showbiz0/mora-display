@@ -75,15 +75,17 @@ const events: Event[] = [
 ];
 ---
 
-<section class="relative overflow-hidden bg-black px-8 py-24 text-white lg:px-16">
+<section
+  class="relative overflow-hidden bg-black px-8 py-24 text-white lg:px-16"
+>
   <div class="mx-auto max-w-[1336px]">
-    <h2 class="text-5xl font-heading font-thin text-accent">History</h2>
+    <h2 class="font-heading text-accent text-5xl font-thin">History</h2>
 
     <!-- Desktop: horizontal timeline -->
     <div class="relative mx-auto mt-24 hidden h-[420px] w-full lg:block">
       <!-- Axis line -->
       <div
-        class="absolute left-0 right-0 top-1/2 h-px -translate-y-1/2 bg-accent/50"
+        class="bg-accent/50 absolute top-1/2 right-0 left-0 h-px -translate-y-1/2"
       >
       </div>
 
@@ -95,13 +97,13 @@ const events: Event[] = [
           >
             {/* Dot */}
             <div
-              class="rounded-full bg-accent/50"
+              class="bg-accent/50 rounded-full"
               style={`width:${ev.dotSize}px; height:${ev.dotSize}px;`}
             />
 
             {/* Stem connecting dot to text block */}
             <div
-              class={`absolute left-1/2 w-px -translate-x-1/2 bg-accent/60 ${
+              class={`bg-accent/60 absolute left-1/2 w-px -translate-x-1/2 ${
                 ev.side === "top" ? "bottom-1/2" : "top-1/2"
               }`}
               style={`height:${ev.stemLength}px;`}
@@ -109,7 +111,7 @@ const events: Event[] = [
 
             {/* Year label */}
             <span
-              class={`absolute left-1/2 -translate-x-1/2 whitespace-nowrap text-3xl font-light text-accent py-2 bg-black ${
+              class={`text-accent absolute left-1/2 -translate-x-1/2 bg-black py-2 text-3xl font-light whitespace-nowrap ${
                 ev.side === "top"
                   ? "bottom-[calc(50%+32px)]"
                   : "top-[calc(50%+32px)]"
@@ -137,16 +139,17 @@ const events: Event[] = [
 
     <!-- Mobile: vertical stacked list -->
     <div class="relative mt-16 flex flex-col gap-10 lg:hidden">
-      <div class="absolute bottom-0 left-[11px] top-0 w-px bg-accent/50"></div>
+      <div class="bg-accent/50 absolute top-0 bottom-0 left-[11px] w-px"></div>
 
       {
         events.map((ev) => (
           <div class="relative pl-8">
+            <div class="bg-accent/50 absolute top-1 left-0 h-6 w-6 rounded-full" />
+            <span class="text-accent text-xl font-light">{ev.year}</span>
             <div
-              class="absolute left-0 top-1 rounded-full w-6 h-6 bg-accent/50"
+              class="mt-2 text-sm leading-relaxed text-white/80"
+              set:html={ev.html}
             />
-            <span class="text-xl font-light text-accent">{ev.year}</span>
-            <div class="mt-2 text-sm leading-relaxed text-white/80" set:html={ev.html} />
           </div>
         ))
       }

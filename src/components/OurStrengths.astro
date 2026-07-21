@@ -94,12 +94,16 @@ const connections: [string, string][] = [
 const nodeMap = Object.fromEntries(nodes.map((n) => [n.id, n]));
 ---
 
-<section class="relative overflow-hidden bg-black px-8 py-24 text-white md:px-16">
+<section
+  class="relative overflow-hidden bg-black px-8 py-24 text-white md:px-16"
+>
   <div class="mx-auto max-w-[1336px]">
-    <h2 class="text-5xl font-heading font-thin text-accent">Our strengths</h2>
+    <h2 class="font-heading text-accent text-5xl font-thin">Our strengths</h2>
 
     <!-- Desktop: spatial diagram -->
-    <div class="relative mx-auto mt-16 hidden h-[620px] w-full max-w-[1137px] md:block">
+    <div
+      class="relative mx-auto mt-16 hidden h-[620px] w-full max-w-[1137px] md:block"
+    >
       <svg
         class="pointer-events-none absolute inset-0 h-full w-full"
         viewBox="0 0 1137 620"
@@ -151,7 +155,10 @@ const nodeMap = Object.fromEntries(nodes.map((n) => [n.id, n]));
             />
 
             {/* Partial ring outline */}
-            <svg viewBox="0 0 100 100" class="absolute -inset-3 h-[calc(100%+24px)] w-[calc(100%+24px)]">
+            <svg
+              viewBox="0 0 100 100"
+              class="absolute -inset-3 h-[calc(100%+24px)] w-[calc(100%+24px)]"
+            >
               <circle
                 cx="50"
                 cy="50"
