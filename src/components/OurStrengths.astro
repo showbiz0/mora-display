@@ -1,219 +1,112 @@
 ---
-interface Node {
-  id: string;
-  title: string;
-  lines: string[];
-  x: number;
-  y: number;
-  size: number;
-  ringGapOffset: number;
-  notchAngle: number; // degrees around the circle where the black bite sits
-  notchSize: number; // px diameter of the black overlapping circle
-}
-
-const nodes: Node[] = [
+const nodes = [
   {
-    id: "expertise",
     title: "Expertise",
-    lines: ["20+ yrs", "20+ years of practical experience"],
-    x: 22.4,
-    y: 44.7,
-    size: 168,
-    ringGapOffset: 40,
-    notchAngle: 15,
-    notchSize: 40,
+    description: "20+ yrs\n20+ years of practical\nexperience",
+    position: "top-[38%] left-[11%]",
   },
   {
-    id: "communication",
     title: "Communication",
-    lines: ["Language", "Project management in four languages"],
-    x: 48.1,
-    y: 29.3,
-    size: 168,
-    ringGapOffset: 150,
-    notchAngle: 195,
-    notchSize: 44,
+    description: "Language\nProject management in\nfour languages",
+    position: "top-[18%] left-[46%]",
   },
   {
-    id: "infrastructure",
-    title: "infrastructure",
-    lines: ["EU net", "Europe-wide network"],
-    x: 78.9,
-    y: 39.3,
-    size: 168,
-    ringGapOffset: 210,
-    notchAngle: 250,
-    notchSize: 38,
+    title: "Infrastructure",
+    description: "EU net\nEurope-wide network",
+    position: "top-[30%] left-[88%]",
   },
   {
-    id: "supervision",
-    title: "Supervison",
-    lines: ["HQ in EU", "supervision from our European headquarter"],
-    x: 32.5,
-    y: 73.9,
-    size: 168,
-    ringGapOffset: 260,
-    notchAngle: 45,
-    notchSize: 42,
+    title: "Supervision",
+    description: "HQ in EU\nsupervision from our\nEuropean headquarter",
+    position: "top-[76%] left-[25%]",
   },
   {
-    id: "partners",
     title: "Partners",
-    lines: ["20+ Partners", "A network of 20+ partner companies"],
-    x: 52.7,
-    y: 62.4,
-    size: 168,
-    ringGapOffset: 0,
-    notchAngle: 335,
-    notchSize: 60,
+    description: "20+ Partners\nA network of 20+\npartner companies",
+    position: "top-[60%] left-[52%]",
   },
   {
-    id: "consulting",
     title: "Consulting",
-    lines: ["Tech advisory", "technical and construction consulting"],
-    x: 72.3,
-    y: 76.6,
-    size: 168,
-    ringGapOffset: 100,
-    notchAngle: 300,
-    notchSize: 40,
+    description: "Tech advisory\ntechnical and\nconstruction consulting",
+    position: "top-[78%] left-[79%]",
   },
 ];
-
-const connections: [string, string][] = [
-  ["expertise", "communication"],
-  ["communication", "infrastructure"],
-  ["expertise", "supervision"],
-  ["supervision", "partners"],
-  ["partners", "communication"],
-  ["partners", "infrastructure"],
-  ["partners", "consulting"],
-  ["supervision", "consulting"],
-];
-
-const nodeMap = Object.fromEntries(nodes.map((n) => [n.id, n]));
 ---
 
-<section
-  class="relative overflow-hidden bg-black px-8 py-24 text-white md:px-16"
->
+<section class="relative bg-black px-6 py-20 text-white md:px-16 overflow-hidden">
   <div class="mx-auto max-w-[1336px]">
-    <h2 class="font-heading text-accent text-5xl font-thin">Our strengths</h2>
 
-    <!-- Desktop: spatial diagram -->
-    <div
-      class="relative mx-auto mt-16 hidden h-[620px] w-full max-w-[1137px] md:block"
-    >
-      <svg
-        class="pointer-events-none absolute inset-0 h-full w-full"
-        viewBox="0 0 1137 620"
-        preserveAspectRatio="none"
-        fill="none"
-      >
-        {
-          connections.map(([fromId, toId]) => {
-            const from = nodeMap[fromId];
-            const to = nodeMap[toId];
-            return (
-              <line
-                x1={(from.x / 100) * 1137}
-                y1={(from.y / 100) * 620}
-                x2={(to.x / 100) * 1137}
-                y2={(to.y / 100) * 620}
-                stroke="var(--color-accent)"
-                stroke-width="1"
-                opacity="0.6"
-              />
-            );
-          })
-        }
-      </svg>
+    <h2 class="font-heading mb-12 md:mb-16 text-accent text-4xl md:text-5xl font-thin">
+      Our Strengths
+    </h2>
 
+    <!-- Mobile version -->
+    <div class="block lg:hidden space-y-6">
       {
         nodes.map((node) => (
-          <div
-            class="absolute flex -translate-x-1/2 -translate-y-1/2 items-center justify-center text-center"
-            style={`left:${node.x}%; top:${node.y}%; width:${node.size}px; height:${node.size}px;`}
-          >
-            {/* Base filled circle */}
-            <div class="absolute inset-0 rounded-full bg-gradient-to-br from-[#8a3d10] to-[#5c2a0c]" />
-
-            {/* Black "bite" circle, overlapping the edge, same color as page bg */}
-            <div
-              class="absolute rounded-full bg-black"
-              style={`
-                width: ${node.notchSize}px;
-                height: ${node.notchSize}px;
-                top: 50%;
-                left: 50%;
-                transform:
-                  rotate(${node.notchAngle}deg)
-                  translate(${node.size / 2}px)
-                  rotate(-${node.notchAngle}deg)
-                  translate(-50%, -50%);
-              `}
-            />
-
-            {/* Partial ring outline */}
-            <svg
-              viewBox="0 0 100 100"
-              class="absolute -inset-3 h-[calc(100%+24px)] w-[calc(100%+24px)]"
-            >
-              <circle
-                cx="50"
-                cy="50"
-                r="47"
-                fill="none"
-                stroke="var(--color-accent)"
-                stroke-width="1"
-                stroke-dasharray="220 75"
-                stroke-dashoffset={-node.ringGapOffset}
-                stroke-linecap="round"
-              />
-            </svg>
-
-            <div class="relative z-10 px-4">
-              <h3 class="text-base font-medium text-white">{node.title}</h3>
-              {node.lines.map((line) => (
-                <p class="mt-1 text-xs leading-snug text-white/70">{line}</p>
-              ))}
-            </div>
+          <div class="border border-accent/40 bg-white/5 rounded-2xl p-6 backdrop-blur-sm">
+            <h3 class="text-2xl font-normal text-white capitalize mb-2">
+              {node.title}
+            </h3>
+            <p class="whitespace-pre-line text-sm text-white/70 font-light leading-relaxed">
+              {node.description}
+            </p>
           </div>
         ))
       }
     </div>
 
-    <!-- Mobile: stacked list, no diagram -->
-    <div class="mt-12 flex flex-col gap-4 md:hidden">
+    <!-- Desktop version -->
+    <div class="hidden lg:block relative w-full max-w-[1200px] mx-auto aspect-[1039/636]">
+      
+      <!-- SVG Background (Nodes & Connecting Lines) -->
+      <svg
+        class="absolute inset-0 w-full h-full pointer-events-none select-none"
+        width="1039"
+        height="636"
+        viewBox="0 0 1039 636"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path d="M548 288C603.228 288 648 332.772 648 388C648 426.186 626.595 459.371 595.13 476.217C594.926 475.948 594.72 475.68 594.511 475.414C625.742 458.762 647 425.864 647 388C647 333.324 602.676 289 548 289C493.324 289 449 333.324 449 388C449 412.703 458.049 435.291 473.011 452.635C472.687 452.77 472.365 452.906 472.044 453.044C457.056 435.558 448 412.837 448 388C448 332.772 492.772 288 548 288Z" fill="#FF6A00"/>
+        <path opacity="0.5" d="M549 306C593.735 306 630 342.489 630 387.5C630 421.153 609.728 450.041 580.801 462.478C564.966 451.09 542.684 444 518 444C509.351 444 500.996 444.87 493.11 446.491C477.64 431.648 468 410.707 468 387.5C468 342.489 504.265 306 549 306Z" fill="#FF6A00"/>
+        <path d="M479.486 0.00976562C542.314 0.805566 593 51.9834 593 115L592.99 116.486C592.455 158.745 569.126 195.509 534.733 215.053C534.543 214.777 534.349 214.503 534.153 214.23C568.694 194.642 592 157.544 592 115C592 52.0395 540.96 1 478 1C415.04 1 364 52.0395 364 115C364 162.09 392.552 202.509 433.287 219.896C433.127 220.189 432.97 220.484 432.815 220.781C392.194 203.407 363.603 163.321 363.01 116.486L363 115C363 51.4873 414.487 0 478 0L479.486 0.00976562Z" fill="#FF6A00"/>
+        <path d="M480 25C529.706 25 570 65.2944 570 115C570 152.09 547.563 183.938 515.522 197.716C506.746 192.817 496.476 190 485.5 190C472.711 190 460.88 193.824 451.253 200.311C415.644 188.316 390 154.653 390 115C390 65.2944 430.294 25 480 25Z" fill="#FF6A00" fill-opacity="0.5"/>
+        <path d="M920 101C922.071 101 924.125 101.072 926.16 101.211C926.054 102.462 926 103.725 926 105C926 132.614 951.296 155 982.5 155C988.857 155 994.968 154.07 1000.67 152.357C1006.01 163.79 1009 176.547 1009 190C1009 226.791 986.676 258.366 954.835 271.923C945.599 264.598 932.292 260 917.5 260C903.678 260 891.154 264.015 882.035 270.518C851.871 256.27 831 225.573 831 190C831 140.847 870.847 101 920 101Z" fill="#FF6A00" fill-opacity="0.5"/>
+        <path d="M1026.34 136.539C1034.44 152.613 1039 170.774 1039 190C1039 238.687 1009.76 280.544 967.885 298.972C967.92 298.596 967.947 298.219 967.966 297.841C1009.23 279.459 1038 238.09 1038 190C1038 171.066 1033.54 153.174 1025.61 137.316C1025.86 137.06 1026.1 136.8 1026.34 136.539ZM920 71C926.634 71 933.14 71.5424 939.479 72.5859C939.198 72.8768 938.923 73.1713 938.65 73.4678C932.575 72.5031 926.346 72 920 72C854.83 72 802 124.83 802 190C802 236.118 828.457 276.054 867.021 295.464C867.007 295.808 867 296.153 867 296.5C867 296.525 867 296.549 867 296.574C827.877 277.081 801 236.679 801 190C801 124.278 854.278 71 920 71Z" fill="#FF6A00"/>
+        <path d="M133.742 499.677C134.084 499.755 134.427 499.83 134.771 499.901C140.433 550.65 176.722 592.144 224.731 605.483C224.874 605.873 225.02 606.259 225.173 606.644C176.318 593.382 139.353 551.238 133.742 499.677ZM258 361C327.036 361 383 416.964 383 486C383 534.322 355.58 576.237 315.451 597.041C315.515 596.637 315.573 596.231 315.626 595.823C355.088 575.074 382 533.68 382 486C382 417.517 326.483 362 258 362C218.143 362 182.679 380.806 159.994 410.027C159.648 409.928 159.301 409.831 158.952 409.738C181.809 380.096 217.674 361 258 361Z" fill="#FF6A00"/>
+        <path d="M258 390C313.228 390 358 434.772 358 490C358 524.947 340.074 555.706 312.915 573.585C306.161 556.287 289.048 544 269 544C245.296 544 225.694 561.175 222.469 583.504C187.576 570.237 162.033 538 158.437 499.392C179.5 494.048 195 475.976 195 454.5C195 442.832 190.425 432.169 182.869 424.005C201.196 403.158 228.061 390 258 390Z" fill="#FF6A00" fill-opacity="0.5"/>
+        <path d="M115 153C164.706 153 205 193.294 205 243C205 292.706 164.706 333 115 333C65.2944 333 25 292.706 25 243C25 224.546 30.5546 207.39 40.082 193.111C45.4272 194.989 51.1092 196 57 196C81.7848 196 102.874 178.099 110.724 153.101C112.141 153.034 113.566 153 115 153Z" fill="#FF6A00" fill-opacity="0.5"/>
+        <path d="M115 133C175.751 133 225 182.249 225 243C225 303.751 175.751 353 115 353C54.2487 353 5 303.751 5 243C5 220.89 11.5235 200.305 22.75 183.062C23.006 183.28 23.2641 183.495 23.5234 183.708C12.4393 200.774 6 221.135 6 243C6 303.199 54.801 352 115 352C175.199 352 224 303.199 224 243C224 182.801 175.199 134 115 134C114.652 134 114.304 134.003 113.957 134.006C113.968 133.673 113.977 133.34 113.983 133.006C114.322 133.003 114.661 133 115 133Z" fill="#FF6A00"/>
+        <path d="M773.162 402.693C773.09 403.093 773.042 403.495 773.018 403.9C737.91 422.543 714 459.479 714 502C714 563.304 763.696 613 825 613C877.109 613 920.829 577.093 932.772 528.673C933.142 528.58 933.509 528.481 933.874 528.379C922.014 577.505 877.769 614 825 614C763.144 614 713 563.856 713 502C713 458.849 737.404 421.398 773.162 402.693ZM874.56 401.535C900.961 414.584 921.478 437.732 931.064 465.933C930.688 465.854 930.31 465.779 929.93 465.71C920.441 438.271 900.496 415.713 874.856 402.802C874.784 402.376 874.685 401.954 874.56 401.535Z" fill="#FF6A00"/>
+        <path d="M858.947 420.885C880.423 429.4 897.551 446.515 906.086 467.98C893.048 473.13 884 484.411 884 497.5C884 510.918 893.508 522.436 907.076 527.396C895.433 559.814 864.425 583 828 583C781.608 583 744 545.392 744 499C744 464.976 764.229 435.677 793.315 422.473C801.854 425.314 812.481 427 824 427C837.525 427 849.819 424.675 858.947 420.885Z" fill="#FF6A00" fill-opacity="0.5"/>
+        <path d="M205 309L229 377" stroke="#FF6A00" stroke-width="0.5"/>
+        <path d="M358 145L238 220" stroke="#FF6A00" stroke-width="0.5"/>
+        <path d="M550 198L558 289" stroke="#FF6A00" stroke-width="0.5"/>
+        <path d="M830 270L653 349" stroke="#FF6A00" stroke-width="0.5"/>
+        <path d="M822 167L600 105" stroke="#FF6A00" stroke-width="0.5"/>
+        <path d="M701 531L383 523" stroke="#FF6A00" stroke-width="0.5"/>
+        <path d="M652 441L713 490" stroke="#FF6A00" stroke-width="0.5"/>
+        <path d="M439 415L377 451" stroke="#FF6A00" stroke-width="0.5"/>
+      </svg>
+
+      <!-- HTML Text Overlay Layers -->
       {
         nodes.map((node) => (
-          <div class="flex items-center gap-4 rounded-lg border border-white/10 p-4">
-            <div class="relative h-16 w-16 shrink-0">
-              <div class="absolute inset-0 rounded-full bg-gradient-to-br from-[#8a3d10] to-[#5c2a0c]" />
-              <div
-                class="absolute rounded-full bg-black"
-                style={`
-                  width: ${node.notchSize * 0.4}px;
-                  height: ${node.notchSize * 0.4}px;
-                  top: 50%;
-                  left: 50%;
-                  transform:
-                    rotate(${node.notchAngle}deg)
-                    translate(32px)
-                    rotate(-${node.notchAngle}deg)
-                    translate(-50%, -50%);
-                `}
-              />
-            </div>
-            <div>
-              <h3 class="text-base font-medium text-white">{node.title}</h3>
-              {node.lines.map((line) => (
-                <p class="mt-1 text-xs leading-snug text-white/70">{line}</p>
-              ))}
-            </div>
+          <div
+            class={`absolute ${node.position} -translate-x-1/2 -translate-y-1/2 text-center w-[180px] xl:w-[260px] flex flex-col items-center justify-center p-2 z-10 pointer-events-auto`}
+          >
+            <h3 class="text-xl xl:text-2xl text-white font-normal capitalize leading-tight">
+              {node.title}
+            </h3>
+
+            <p class="whitespace-pre-line text-sm xl:text-base text-white/70 font-extralight mt-1 xl:mt-2 leading-tight xl:leading-snug">
+              {node.description}
+            </p>
           </div>
         ))
       }
+
     </div>
   </div>
 </section>
