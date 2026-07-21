@@ -1,8 +1,8 @@
 <?php
 session_start();
 
-define('RECIPIENT_EMAIL', 'your-personal-email@gmail.com'); // Where you want messages sent
-define('DOMAIN_SENDER', 'noreply@yourdomain.com');        // Created in Hostinger control panel
+define('RECIPIENT_EMAIL', 'director@moradisplay.com'); // Where you want messages sent
+define('DOMAIN_SENDER', 'director@moradisplay.com');        // Created in Hostinger control panel
 define('COOLDOWN_SECONDS', 60);
 
 // 1. Enforce POST
