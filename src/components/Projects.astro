@@ -2,51 +2,106 @@
 // Dot coordinates as % of image width/height
 const locations = [
   {
+    id: "italy",
+    label: "Italy",
+    x: 62,
+    y: 37,
+    projects: [
+      { name: "EICMA", dates: "Milano", place: "Italy" },
+      { name: "COSMOPROF", dates: "Bologna", place: "Italy" },
+      { name: "COSMOPACK", dates: "Bologna", place: "Italy" },
+      { name: "MIDO", dates: "Milan", place: "Italy" },
+      { name: "SALONE DEL MOBILE", dates: "Milan", place: "Italy" },
+      { name: "MACEF", dates: "Milano", place: "Italy" },
+      { name: "WHITE SNOW", dates: "Milan", place: "Italy" },
+      { name: "HOST", dates: "Milan", place: "Italy" },
+      { name: "UNICA", dates: "Milan", place: "Italy" },
+      { name: "LINEAPELLE", dates: "Milan", place: "Italy" },
+      { name: "TUTTO FOOD", dates: "Milano", place: "Italy" },
+      { name: "SAPORI DELLA COREA", dates: "Milano", place: "Italy" },
+      { name: "KOSHI KOBA", dates: "Milano", place: "Italy" },
+      { name: "VENDITALIA", dates: "Milan", place: "Italy" },
+      { name: "WUWHS", dates: "Florence", place: "Italy" },
+      { name: "ISUOG", dates: "Rome", place: "Italy" },
+      { name: "EAO", dates: "Rome, Milan", place: "Italy" },
+      { name: "HYOSUNG", dates: "Milano", place: "Italy" },
+      { name: "HYUNDAI", dates: "Milano", place: "Italy" },
+      { name: "KOREAN AIRLINE", dates: "Milano", place: "Italy" },
+      { name: "ENERSOL", dates: "Milano, Verona", place: "Italy" },
+      { name: "BI-MU", dates: "Milano", place: "Italy" },
+      { name: "MCE", dates: "Milano", place: "Italy" },
+      { name: "ESCRS", dates: "Copenhagen, Milan, London, Vienna", place: "Italy" },
+      { name: "SLOWFOOD", dates: "Turin", place: "Italy" },
+    ],
+  },
+  {
     id: "usa",
-    label: "USA",
+    label: "America",
     x: 8,
     y: 45,
     projects: [
-      { name: "Fiera di New York", dates: "12–15 Mar 2027", place: "New York" },
-      { name: "Expo Chicago", dates: "3–6 Giu 2027", place: "Chicago" },
+      { name: "PREMIERE VISION", dates: "New York", place: "America" },
+      { name: "OUTDOOR Retailers", dates: "Denver", place: "America" },
     ],
   },
   {
     id: "spain",
-    label: "Spagna",
+    label: "Spain",
     x: 54,
     y: 40,
     projects: [
-      { name: "Fira Barcelona", dates: "22–25 Apr 2027", place: "Barcellona" },
+      { name: "FOTOVOLTAIC", dates: "Madrid", place: "Spain" },
+      { name: "CPHI", dates: "Madrid", place: "Spain" },
+      { name: "EWMA", dates: "Madrid", place: "Spain" },
+      { name: "EAO", dates: "Madrid", place: "Spain" },
+      { name: "CCIB", dates: "Barcelona", place: "Spain" },
+      { name: "EASD", dates: "Lisbon", place: "Spain" },
     ],
   },
   {
     id: "france",
-    label: "Francia",
+    label: "France",
     x: 60,
     y: 33,
     projects: [
-      { name: "Salon de Paris", dates: "9–12 Set 2027", place: "Parigi" },
-      { name: "Foire de Lyon", dates: "1–3 Ott 2027", place: "Lione" },
+      { name: "SILMO", dates: "Paris", place: "France" },
+      { name: "PREMIER VISION", dates: "Paris", place: "France" },
+      { name: "ADF", dates: "Paris", place: "France" },
+      { name: "MAISON OBJECT", dates: "Paris", place: "France" },
+      { name: "EUROSPINE", dates: "Lyon, Dublin", place: "France" },
+      { name: "AMWC", dates: "Montecarlo", place: "France" },
     ],
   },
   {
     id: "germany",
-    label: "Germania",
-    x: 65,
-    y: 37,
+    label: "Germany",
+    x: 72,
+    y: 35,
     projects: [
-      { name: "Messe Berlin", dates: "14–17 Mag 2027", place: "Berlino" },
-      { name: "Messe München", dates: "5–8 Lug 2027", place: "Monaco" },
+      { name: "EUROBIKE", dates: "Friedrichshafen", place: "Germany" },
+      { name: "AGRITECH", dates: "Hannover", place: "Germany" },
+      { name: "ELECTRONICA", dates: "Munich", place: "Germany" },
+      { name: "INTERSOLAR", dates: "Munich", place: "Germany" },
+      { name: "TUBE", dates: "Dusseldorf", place: "Germany" },
+      { name: "MEDICA", dates: "Dusseldorf", place: "Germany" },
+      { name: "IDS", dates: "Köln", place: "Germany" },
+      { name: "A+A", dates: "Dussedorf", place: "Germany" },
+      { name: "FA", dates: "Frankfurt", place: "Germany" },
+      { name: "CPHI", dates: "Frankfurt", place: "Germany" },
+      { name: "BOOKFAIR", dates: "Leipzig", place: "Germany" },
+      { name: "EUROPERIO", dates: "Amsterdam", place: "Germany" },
+      { name: "DENTIUM World Forum", dates: "Budapest", place: "Germany" },
+      { name: "EWMA", dates: "Netherlands", place: "Germany" },
+      { name: "IECR", dates: "Vienna", place: "Germany" },
     ],
   },
   {
     id: "russia",
     label: "Russia",
-    x: 85,
-    y: 35,
+    x: 90,
+    y: 30,
     projects: [
-      { name: "Moscow Expo", dates: "18–21 Nov 2027", place: "Mosca" },
+      { name: "INTERCHARM", dates: "Moscow", place: "Russia" },
     ],
   },
 ];
@@ -56,7 +111,7 @@ import mapImage from "../assets/images/map.png";
 ---
 
 <section class="relative mx-auto max-w-[1336px] px-8 py-32 text-white md:px-16">
-  <projects-map class="flex flex-col md:flex-row-reverse md:justify-between">
+  <projects-map class="flex flex-col md:flex-row-reverse md:justify-between md:items-start">
     <div class="relative mx-auto aspect-[1858/2304] w-full md:w-1/2">
       <Image
         src={mapImage}
@@ -86,7 +141,7 @@ import mapImage from "../assets/images/map.png";
       </h2>
 
       <div
-        class="projects-list mt-2 max-w-[520px] text-sm leading-relaxed text-white/70"
+        class="projects-list mt-2 max-w-[520px] max-h-[520px] overflow-auto text-sm leading-relaxed text-white/70"
       >
         <p data-default-text class="text-2xl">
           Select a location on the map to view the projects associated with it.

@@ -73,6 +73,8 @@ const events: Event[] = [
           </ul>`,
   },
 ];
+
+const lastEventX = events[events.length - 1].x;
 ---
 
 <section
@@ -87,7 +89,8 @@ const events: Event[] = [
     <div class="relative mx-auto mt-24 hidden h-[420px] w-full lg:block">
       <!-- Axis line -->
       <div
-        class="bg-accent/50 absolute top-1/2 right-0 left-0 h-px -translate-y-1/2"
+        class="bg-accent/50 absolute top-1/2 left-0 h-px -translate-y-1/2"
+        style={`width:${lastEventX}%;`}
       >
       </div>
 
