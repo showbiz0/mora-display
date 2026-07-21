@@ -131,8 +131,8 @@
             showHeader();
           }
         },
-        onLeave: showHeader,      // Reappear when hero finishes and unpins
-        onEnterBack: hideHeader,  // Hide again if scrolling back into hero zoom
+        onLeave: showHeader, // Reappear when hero finishes and unpins
+        onEnterBack: hideHeader, // Hide again if scrolling back into hero zoom
         onLeaveBack: showHeader, // Reappear if scrolling all the way back to top
       },
     });
@@ -144,7 +144,7 @@
         transformOrigin: "50% 50%",
         ease: "power2.in",
       },
-      0
+      0,
     );
 
     timeline.to(
@@ -153,7 +153,7 @@
         opacity: 0,
         ease: "power1.inOut",
       },
-      0
+      0,
     );
   }
 </script>

@@ -15,10 +15,15 @@ const navLinks = [
 <!-- Fixed Header -->
 <header
   id="main-header"
-  class="fixed top-0 left-0 z-50 flex w-full items-center justify-between bg-black/90 px-8 py-6 backdrop-blur-sm transition-transform duration-300 md:px-16 translate-y-0"
+  class="fixed top-0 left-0 z-50 flex w-full translate-y-0 items-center justify-between bg-black/90 px-8 py-6 backdrop-blur-sm transition-transform duration-300 md:px-16"
 >
   <a href="/" class="text-lg font-semibold tracking-wide text-white">
-    <Image src={logoImage} alt="Mora Display Logo" class="h-8 w-auto md:h-10" loading="eager" />
+    <Image
+      src={logoImage}
+      alt="Mora Display Logo"
+      class="h-8 w-auto md:h-10"
+      loading="eager"
+    />
   </a>
 
   <button
@@ -41,12 +46,17 @@ const navLinks = [
 <!-- Full-Screen Navigation Overlay (Added 'invisible' to default classes) -->
 <div
   id="nav-overlay"
-  class="fixed inset-0 z-[60] flex flex-col justify-between bg-black/95 px-8 py-8 backdrop-blur-md transition-all duration-300 opacity-0 pointer-events-none invisible md:px-16"
+  class="pointer-events-none invisible fixed inset-0 z-[60] flex flex-col justify-between bg-black/95 px-8 py-8 opacity-0 backdrop-blur-md transition-all duration-300 md:px-16"
   aria-hidden="true"
 >
   <div class="flex items-center justify-between">
     <a href="/" class="text-lg font-semibold tracking-wide text-white">
-      <Image src={logoImage} alt="Mora Display Logo" class="h-8 w-auto md:h-10" loading="eager" />
+      <Image
+        src={logoImage}
+        alt="Mora Display Logo"
+        class="h-8 w-auto md:h-10"
+        loading="eager"
+      />
     </a>
 
     <button
@@ -63,16 +73,18 @@ const navLinks = [
     </button>
   </div>
 
-  <nav class="my-auto mx-auto w-fit py-12">
-    <ul class="grid gap-6 text-left md:grid-cols-2 md:gap-x-16 lg:gap-x-24 md:gap-y-10">
+  <nav class="mx-auto my-auto w-fit py-12">
+    <ul
+      class="grid gap-6 text-left md:grid-cols-2 md:gap-x-16 md:gap-y-10 lg:gap-x-24"
+    >
       {
         navLinks.map((link, index) => (
           <li>
             <a
               href={link.href}
-              class="nav-link group inline-flex items-baseline gap-4 text-2xl font-thin tracking-wide text-white transition-colors hover:text-accent md:text-3xl lg:text-4xl"
+              class="nav-link group hover:text-accent inline-flex items-baseline gap-4 text-2xl font-thin tracking-wide text-white transition-colors md:text-3xl lg:text-4xl"
             >
-              <span class="text-xs font-mono text-accent/60 group-hover:text-accent">
+              <span class="text-accent/60 group-hover:text-accent font-mono text-xs">
                 0{index + 1}
               </span>
               <span>{link.name}</span>
@@ -83,7 +95,9 @@ const navLinks = [
     </ul>
   </nav>
 
-  <div class="flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-6 text-xs font-light text-white/40 sm:text-sm md:flex-row">
+  <div
+    class="flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-6 text-xs font-light text-white/40 sm:text-sm md:flex-row"
+  >
     <p>Mora Display — Exhibition & Architecture Solutions</p>
     <p>© {new Date().getFullYear()} Mora Display. All rights reserved.</p>
   </div>
@@ -121,7 +135,10 @@ const navLinks = [
   });
 
   document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && overlay?.getAttribute("aria-hidden") === "false") {
+    if (
+      e.key === "Escape" &&
+      overlay?.getAttribute("aria-hidden") === "false"
+    ) {
       closeMenu();
     }
   });
