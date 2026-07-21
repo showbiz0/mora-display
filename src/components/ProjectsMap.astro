@@ -143,14 +143,14 @@ import mapImage from "../assets/images/map.png";
       if (!loc) return;
 
       this.listEl.innerHTML = `
-        <h3 class="mb-3 text-2xl font-medium text-white">${loc.label}</h3>
+        <h3 class="mb-8 text-4xl font-thin font-heading text-white">${loc.label}</h3>
         <ul class="space-y-2">
           ${loc.projects
             .map(
               (p) => `
             <li class="border-b border-white/10 pb-2">
-              <span class="font-medium text-white">${p.name}</span>
-              <span class="text-white/50"> — ${p.dates}, ${p.place}</span>
+              <span class="text-2xl text-white">${p.name}</span>
+              <span class="text-2xl text-white/50"> — ${p.dates}, ${p.place}</span>
             </li>`,
             )
             .join("")}
